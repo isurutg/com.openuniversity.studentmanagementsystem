@@ -1,0 +1,131 @@
+<div class="container">
+  <h1>Master File : Define Application Field</h1>
+  <form
+    class="py-5"
+    [formGroup]="applicationBuilderForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Programme*</label>
+      <select
+        class="form-control"
+        id="exampleFormControlSelect1"
+        formControlName="courseId"
+      >
+        <option
+          *ngFor="let program of programs$ | async"
+          [value]="program.id"
+          >{{ program.program_name }}</option
+        >
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Academic Schedule*</label>
+      <select
+        class="form-control"
+        id="exampleFormControlSelect2"
+        formControlName="scheduleId"
+      >
+        <option
+          *ngFor="let schedule of schedules$ | async"
+          [value]="schedule.id"
+          >{{ schedule.academic_schedule_name }}</option
+        >
+      </select>
+    </div>
+    <div class="form-group" *ngIf="fields$ | async">
+      <label for="exampleFormControlSelect1">Common Fields*</label>
+
+      <div class="row common-fields">
+        <div
+          *ngFor="let field of (fields$ | async).common_fields"
+          class="col-3 small"
+        >
+          {{ field.field_name }}
+        </div>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="fields$ | async">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Specific Fields</th>
+            <th scope="col">Applicable Fields</th>
+            <th scope="col">Mandatory Fields</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="specificFields">
+          <tr
+            *ngFor="
+              let field of applicationBuilderForm.get('specificFields')
+                .controls;
+              let i = index
+            "
+            [formGroupName]="i"
+          >
+            <td scope="row">
+              {{ (fields$ | async).specific_fields[i].field_name }}
+            </td>
+            <td class="text-center">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  formControlName="applicable"
+                  (change)="onCheckChange($event, i, 'applicable')"
+                />
+              </div>
+            </td>
+            <td class="text-center">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  formControlName="required"
+                  (change)="onCheckChange($event, i, 'required')"
+                />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1"
+        >Select the last Date that will enable the student to edit the
+        application</label
+      >
+      <div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="closingDate"
+            id="inlineRadio1"
+            value="option1"
+            formControlName="closingDate"
+          />
+          <label class="form-check-label" for="inlineRadio1"
+            >Before Making the Payment</label
+          >
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="closingDate"
+            id="inlineRadio2"
+            value="option2"
+            formControlName="closingDate"
+          />
+          <label class="form-check-label" for="inlineRadio2"
+            >Before the application Closing Date</label
+          >
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary float-right">Submit</button>
+  </form>
+</div>
