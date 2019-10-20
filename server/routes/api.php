@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GetCountries;
 use Illuminate\Http\Request;
 
 /*
@@ -17,11 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('program/get_all', 'ProgramController@getAll');
-Route::get('academic_schedule/get_all', 'AcademicScheduleController@getAll');
-Route::get('application_filed/get_all', 'FieldController@getAll');
 Route::resources([
     'program' => 'ProgramController',
     'academic_schedule' => 'AcademicScheduleController',
-    'master_application' => 'MasterApplicationController'
+    'application_field' => 'FieldController',
+    'master_application' => 'MasterApplicationController',
+    'application' => 'ApplicationController'
 ]);
+
+Route::get('countries', 'GetCountries');
+Route::get('districts', 'GetDistricts');

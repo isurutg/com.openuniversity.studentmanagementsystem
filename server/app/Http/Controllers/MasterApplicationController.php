@@ -14,7 +14,7 @@ class MasterApplicationController extends Controller
      */
     public function index()
     {
-        return  response()->json(ProgramAcademicSchedule::all());
+        return response()->json(ProgramAcademicSchedule::with(['program', 'academicSchedule'])->get());
     }
 
     /**
@@ -58,7 +58,7 @@ class MasterApplicationController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(ProgramAcademicSchedule::with(['program', 'academicSchedule'])->where('id', $id)->first());
     }
 
     /**

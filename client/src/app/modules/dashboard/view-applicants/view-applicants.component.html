@@ -1,0 +1,26 @@
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Course Name</th>
+        <th scope="col">Schedule</th>
+        <th scope="col">Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let applicant of applicants$ | async; let i = index">
+        <td scope="row">
+          {{ applicant.program_schedule.program.program_name }}
+        </td>
+        <td class="text-center">
+          {{
+            applicant.program_schedule.academic_schedule.academic_schedule_name
+          }}
+        </td>
+        <td class="text-center">
+          {{ applicant.data | json }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

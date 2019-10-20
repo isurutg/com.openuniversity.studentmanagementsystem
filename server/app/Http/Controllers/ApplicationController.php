@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\AcademicSchedule;
+use App\Application;
+use App\ProgramAcademicSchedule;
 use Illuminate\Http\Request;
 
-class AcademicScheduleController extends Controller
+class ApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class AcademicScheduleController extends Controller
      */
     public function index()
     {
-        return response()->json(AcademicSchedule::where('status', 2)->get(['id', 'academic_schedule_name', 'year']));
+        //
     }
 
     /**
@@ -35,7 +36,20 @@ class AcademicScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            if (!ProgramAcademicSchedule::where('id', $request->academic_schedule_id)->count()) {
+                return response()->json($request);
+            }
+            $application = new Application;
+            $application->academic_schedule_id = $request->academic_schedule_id;
+            $application->data = $request->data;
+            $application->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            // something went wrong with the transaction, rollback
+        } catch (\Exception $e) {
+            // something went wrong elsewhere, handle gracefully
+        }
+        return  response()->json($request);
     }
 
     /**
@@ -46,7 +60,7 @@ class AcademicScheduleController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(Application::with(['programSchedule', 'programSchedule.program', 'programSchedule.academicSchedule'])->where('academic_schedule_id', $id)->get());
     }
 
     /**

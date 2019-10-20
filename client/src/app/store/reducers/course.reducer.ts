@@ -6,12 +6,24 @@ export interface State {
   courseList: object;
   scheduleList: object;
   fieldList: object;
+  courseScheduleList: object;
+  selectedCourse: object;
+  countries: object;
+  districts: object;
+  applications: object;
+  selectedApplication: object;
 }
 
 export const initialState: State = {
   courseList: null,
   scheduleList: null,
   fieldList: null,
+  courseScheduleList: null,
+  selectedCourse: null,
+  countries: null,
+  districts: null,
+  applications: null,
+  selectedApplication: null
 };
 
 export function reducer(state = initialState, action: courseActions.CourseActions): State {
@@ -31,6 +43,36 @@ export function reducer(state = initialState, action: courseActions.CourseAction
       return {
         ...state,
         fieldList: action.payload
+      };
+
+    case courseActions.CourseActionTypes.GetCourseList:
+      return {
+        ...state,
+        courseScheduleList: action.payload
+      };
+
+    case courseActions.CourseActionTypes.GetCourseData:
+      return {
+        ...state,
+        selectedCourse: action.payload
+      };
+
+    case courseActions.CourseActionTypes.GetCountries:
+      return {
+        ...state,
+        countries: action.payload
+      };
+
+    case courseActions.CourseActionTypes.GetDistricts:
+      return {
+        ...state,
+        districts: action.payload
+      };
+
+    case courseActions.CourseActionTypes.GetApplicants:
+      return {
+        ...state,
+        applications: action.payload
       };
 
     default:

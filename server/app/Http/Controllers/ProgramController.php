@@ -14,7 +14,7 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Program::where('active', true)->get(['id', 'program_name']));
     }
 
     /**
@@ -81,16 +81,5 @@ class ProgramController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
-        return  response()->json(Program::where('active', true)->get(['id', 'program_name']));
     }
 }

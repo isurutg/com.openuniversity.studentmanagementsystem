@@ -11,6 +11,19 @@ export enum CourseActionTypes {
   SaveApplicationMasterFile = '[Course] Save Application Master File',
   SaveApplicationMasterFileSuccess = '[Course] Save Application Master File Success',
   SaveApplicationMasterFileFailed = '[Course] Save Application Master File Failed',
+  LoadCourseList = '[Course] Load Course List',
+  GetCourseList = '[Course] Get Course List',
+  LoadCourseData = '[Course] Load Course Data',
+  GetCourseData = '[Course] Get Course Data',
+  LoadCountries = '[Course] Load Countries',
+  GetCountries = '[Course] Get Countries',
+  LoadDistricts = '[Course] Load Districts',
+  GetDistricts = '[Course] Get Districts',
+  LoadApplicants = '[Course] Load Applicants',
+  GetApplicants = '[Course] Get Applicants',
+  SaveApplication = '[Course] Save Application Master File',
+  SaveApplicationSuccess = '[Course] Save Application Success',
+  SaveApplicationFailed = '[Course] Save Application Failed',
 }
 
 export class LoadCourses implements Action {
@@ -59,6 +72,70 @@ export class SaveApplicationMasterFileFailed implements Action {
   constructor(public payload) { }
 }
 
+export class LoadCourseList implements Action {
+  readonly type = CourseActionTypes.LoadCourseList;
+}
+
+export class GetCourseList implements Action {
+  readonly type = CourseActionTypes.GetCourseList;
+  constructor(public payload) { }
+}
+
+export class LoadCourseData implements Action {
+  readonly type = CourseActionTypes.LoadCourseData;
+  constructor(public payload) { }
+}
+
+export class GetCourseData implements Action {
+  readonly type = CourseActionTypes.GetCourseData;
+  constructor(public payload) { }
+}
+
+export class LoadCountries implements Action {
+  readonly type = CourseActionTypes.LoadCountries;
+  constructor(public payload) { }
+}
+
+export class GetCountries implements Action {
+  readonly type = CourseActionTypes.GetCountries;
+  constructor(public payload) { }
+}
+
+export class LoadDistricts implements Action {
+  readonly type = CourseActionTypes.LoadDistricts;
+  constructor(public payload) { }
+}
+
+export class GetDistricts implements Action {
+  readonly type = CourseActionTypes.GetDistricts;
+  constructor(public payload) { }
+}
+
+export class LoadApplicants implements Action {
+  readonly type = CourseActionTypes.LoadApplicants;
+  constructor(public payload) { }
+}
+
+export class GetApplicants implements Action {
+  readonly type = CourseActionTypes.GetApplicants;
+  constructor(public payload) { }
+}
+
+export class SaveApplication implements Action {
+  readonly type = CourseActionTypes.SaveApplication;
+  constructor(public payload) { }
+}
+
+export class SaveApplicationSuccess implements Action {
+  readonly type = CourseActionTypes.SaveApplicationSuccess;
+  constructor(public payload) { }
+}
+
+export class SaveApplicationFailed implements Action {
+  readonly type = CourseActionTypes.SaveApplicationFailed;
+  constructor(public payload) { }
+}
+
 export type CourseActions = LoadCourses
   | LoadProgramList
   | GetProgramList
@@ -68,4 +145,17 @@ export type CourseActions = LoadCourses
   | GetFieldList
   | SaveApplicationMasterFile
   | SaveApplicationMasterFileSuccess
-  | SaveApplicationMasterFileFailed;
+  | SaveApplicationMasterFileFailed
+  | LoadCourseList
+  | GetCourseList
+  | LoadCourseData
+  | GetCourseData
+  | SaveApplication
+  | SaveApplicationSuccess
+  | SaveApplicationFailed
+  | LoadCountries
+  | GetCountries
+  | LoadDistricts
+  | GetDistricts
+  | LoadApplicants
+  | GetApplicants;

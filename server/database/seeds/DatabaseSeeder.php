@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProgramTableSeeder::class,
             AcademicScheduleTableSeeder::class,
-            ApplicationFieldTableSeeder::class
+            ApplicationFieldTableSeeder::class,
+            CountriesTableSeeder::class,
+            DistrictsTableSeeder::class
         ]);
     }
 }

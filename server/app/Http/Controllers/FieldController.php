@@ -14,7 +14,10 @@ class FieldController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'common_fields' => ApplicationField::whereJsonContains('configuration->common_field', true)->get(),
+            'specific_fields' => ApplicationField::whereJsonContains('configuration->common_field',  false)->get(),
+        ]);
     }
 
     /**
@@ -81,18 +84,5 @@ class FieldController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
-        return  response()->json([
-            'common_fields' => ApplicationField::whereJsonContains('configuration->common_field', true)->get(),
-            'specific_fields' => ApplicationField::whereJsonContains('configuration->common_field',  false)->get(),
-        ]);
     }
 }

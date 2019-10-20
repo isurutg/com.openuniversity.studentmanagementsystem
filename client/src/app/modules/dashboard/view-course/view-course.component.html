@@ -1,0 +1,35 @@
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Course Name</th>
+        <th scope="col">Schedule</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courseList$ | async; let i = index">
+        <td scope="row">
+          {{ course.program.program_name }}
+        </td>
+        <td class="text-center">
+          {{ course.academic_schedule.academic_schedule_name }}
+        </td>
+        <td class="text-center">
+          <a
+            [routerLink]="['/register', course.id]"
+            class="btn btn-primary btn-sm small"
+          >
+            Register
+          </a>
+          <a
+            [routerLink]="['/view_applicants', course.id]"
+            class="btn btn-primary btn-sm small"
+          >
+            View Applicants
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

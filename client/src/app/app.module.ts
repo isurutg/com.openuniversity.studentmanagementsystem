@@ -19,9 +19,11 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { fakeBackendProvider } from './core/helpers/fake-backend';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { FieldFilterPipe } from './core/helpers/field-filter.pipe';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FieldFilterPipe
   ],
   imports: [
     BrowserModule,

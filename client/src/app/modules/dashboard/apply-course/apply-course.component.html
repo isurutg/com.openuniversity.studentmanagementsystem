@@ -1,1 +1,153 @@
-<p>apply-course works!</p>
+<div class="container">
+  <h1>Personal Detail</h1>
+  <form
+    class="py-5 row"
+    [formGroup]="applicationForm"
+    (ngSubmit)="onSubmit()"
+    *ngIf="courseData$ | async"
+  >
+    <div class="col-6">
+      <div *ngFor="let field of (courseData$ | async).fields">
+        <div
+          class="form-group"
+          *ngIf="
+            field['configuration']['category'] === 'personal' &&
+            field['configuration']['section'] === '1'
+          "
+        >
+          <label for="exampleFormControlSelect1">{{
+            field.configuration.display_text
+          }}</label>
+          <ng-container
+            [ngTemplateOutlet]="
+              field.configuration.type == 'text'
+                ? text
+                : field.configuration.type == 'select'
+                ? select
+                : date
+            "
+            [ngTemplateOutletContext]="{ field: field }"
+          >
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div *ngFor="let field of (courseData$ | async).fields">
+        <div
+          class="form-group"
+          *ngIf="
+            field['configuration']['category'] === 'personal' &&
+            field['configuration']['section'] === '2'
+          "
+        >
+          <label for="exampleFormControlSelect1">{{
+            field.configuration.display_text
+          }}</label>
+          <ng-container
+            [ngTemplateOutlet]="
+              field.configuration.type == 'text'
+                ? text
+                : field.configuration.type == 'select'
+                ? select
+                : field.configuration.type == 'date'
+                ? date
+                : imagefile
+            "
+            [ngTemplateOutletContext]="{ field: field }"
+          >
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <ng-template #date let-field="field">
+      <input
+        type="date"
+        class="form-control"
+        id="formGroupExampleInput"
+        [formControlName]="field.field_name"
+      />
+    </ng-template>
+
+    <ng-template #text let-field="field">
+      <input
+        type="text"
+        class="form-control"
+        id="formGroupExampleInput"
+        [formControlName]="field.field_name"
+      />
+    </ng-template>
+
+    <ng-template #select let-field="field">
+      <select
+        class="form-control"
+        id="exampleFormControlSelect1"
+        [formControlName]="field.field_name"
+      >
+        <ng-container
+          [ngTemplateOutlet]="
+            field.configuration.values
+              ? vaueBay
+              : field.configuration.table === 'countries'
+              ? country
+              : districts
+          "
+        >
+        </ng-container>
+        <ng-template #vaueBay>
+          <option
+            *ngFor="let value of field.configuration.values"
+            [value]="value"
+          >
+            {{ value }}
+          </option>
+        </ng-template>
+        <ng-template #districts>
+          <option
+            *ngFor="let district of district$ | async"
+            [value]="district.name"
+          >
+            {{ district.name }}
+          </option>
+        </ng-template>
+        <ng-template #country>
+          <option
+            *ngFor="let country of countries$ | async"
+            [value]="country.name"
+          >
+            {{ country.name }}
+          </option>
+        </ng-template>
+      </select>
+    </ng-template>
+
+    <ng-template #imagefile let-field="field">
+      <div class="avatar-upload">
+        <div class="avatar-edit">
+          <input
+            type="file"
+            id="imageUpload"
+            accept=".png, .jpg, .jpeg"
+            #fileInput
+            (change)="uploadFile($event)"
+          />
+        </div>
+        <div class="avatar-preview">
+          <div
+            id="imagePreview"
+            [style.backgroundImage]="'url(' + imageUrl + ')'"
+          ></div>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-danger btn-small btn-block"
+        (click)="fileInput.click()"
+      >
+        Upload Image
+      </button>
+    </ng-template>
+
+    <button type="submit" class="btn btn-primary float-right">Submit</button>
+  </form>
+</div>

@@ -1,6 +1,6 @@
-import { Observable, from } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable, from } from 'rxjs';
 
 import * as fromRoot from '../../../store/reducers/index';
 import * as courseActions from '../../../store/actions/course.actions';
@@ -36,6 +36,7 @@ export class AddCourseComponent implements OnInit {
     this.fields$ = this.store.select(state => state.course.fieldList);
     this.fields$.subscribe((data) => {
       this.fields = data;
+      console.log(data)
       if (data) {
         data['specific_fields'].forEach(item => {
           this.addSpecificField();
