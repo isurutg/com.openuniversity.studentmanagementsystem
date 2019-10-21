@@ -23,6 +23,7 @@ export class ApplyCourseComponent implements OnInit {
   applicationForm: FormGroup;
   countries$: Observable<object>;
   district$: Observable<object>;
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -64,6 +65,7 @@ export class ApplyCourseComponent implements OnInit {
 
   onSubmit() {
     // stop here if form is invalid
+    this.submitted = true;
     if (this.applicationForm.invalid) {
       return;
     }

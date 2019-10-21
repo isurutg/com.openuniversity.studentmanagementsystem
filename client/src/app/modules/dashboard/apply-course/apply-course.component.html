@@ -1,71 +1,83 @@
 <div class="container">
   <h1>Personal Detail</h1>
   <form
-    class="py-5 row"
+    class="py-5"
     [formGroup]="applicationForm"
     (ngSubmit)="onSubmit()"
     *ngIf="courseData$ | async"
   >
-    <div class="col-6">
-      <div *ngFor="let field of (courseData$ | async).fields">
-        <div
-          class="form-group"
-          *ngIf="
-            field['configuration']['category'] === 'personal' &&
-            field['configuration']['section'] === '1'
-          "
-        >
-          <label for="exampleFormControlSelect1">{{
-            field.configuration.display_text
-          }}</label>
-          <ng-container
-            [ngTemplateOutlet]="
-              field.configuration.type == 'text'
-                ? text
-                : field.configuration.type == 'select'
-                ? select
-                : date
+    <div class="row">
+      <div class="col-6">
+        <div *ngFor="let field of (courseData$ | async).fields">
+          <div
+            class="form-group"
+            [ngClass]="{ required: field.configuration.required }"
+            *ngIf="
+              field['configuration']['category'] === 'personal' &&
+              field['configuration']['section'] === '1'
             "
-            [ngTemplateOutletContext]="{ field: field }"
           >
-          </ng-container>
+            <label for="exampleFormControlSelect1">{{
+              field.configuration.display_text
+            }}</label>
+            <ng-container
+              [ngTemplateOutlet]="
+                field.configuration.type == 'text'
+                  ? text
+                  : field.configuration.type == 'select'
+                  ? select
+                  : date
+              "
+              [ngTemplateOutletContext]="{ field: field }"
+            >
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div *ngFor="let field of (courseData$ | async).fields">
+          <div
+            class="form-group"
+            *ngIf="
+              field['configuration']['category'] === 'personal' &&
+              field['configuration']['section'] === '2'
+            "
+          >
+            <label for="exampleFormControlSelect1">{{
+              field.configuration.display_text
+            }}</label>
+            <ng-container
+              [ngTemplateOutlet]="
+                field.configuration.type == 'text'
+                  ? text
+                  : field.configuration.type == 'select'
+                  ? select
+                  : field.configuration.type == 'date'
+                  ? date
+                  : imagefile
+              "
+              [ngTemplateOutletContext]="{ field: field }"
+            >
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-6">
-      <div *ngFor="let field of (courseData$ | async).fields">
-        <div
-          class="form-group"
-          *ngIf="
-            field['configuration']['category'] === 'personal' &&
-            field['configuration']['section'] === '2'
-          "
-        >
-          <label for="exampleFormControlSelect1">{{
-            field.configuration.display_text
-          }}</label>
-          <ng-container
-            [ngTemplateOutlet]="
-              field.configuration.type == 'text'
-                ? text
-                : field.configuration.type == 'select'
-                ? select
-                : field.configuration.type == 'date'
-                ? date
-                : imagefile
-            "
-            [ngTemplateOutletContext]="{ field: field }"
-          >
-          </ng-container>
-        </div>
-      </div>
+    <div>
+      <button type="submit" class="btn btn-primary float-right">Submit</button>
     </div>
+
     <ng-template #date let-field="field">
       <input
         type="date"
         class="form-control"
         id="formGroupExampleInput"
         [formControlName]="field.field_name"
+        [ngClass]="{
+          'is-invalid':
+            (applicationForm.get(field.field_name).touched || submitted) &&
+            applicationForm.get(field.field_name).invalid
+        }"
       />
     </ng-template>
 
@@ -75,6 +87,11 @@
         class="form-control"
         id="formGroupExampleInput"
         [formControlName]="field.field_name"
+        [ngClass]="{
+          'is-invalid':
+            (applicationForm.get(field.field_name).touched || submitted) &&
+            applicationForm.get(field.field_name).invalid
+        }"
       />
     </ng-template>
 
@@ -83,6 +100,11 @@
         class="form-control"
         id="exampleFormControlSelect1"
         [formControlName]="field.field_name"
+        [ngClass]="{
+          'is-invalid':
+            (applicationForm.get(field.field_name).touched || submitted) &&
+            applicationForm.get(field.field_name).invalid
+        }"
       >
         <ng-container
           [ngTemplateOutlet]="
@@ -130,6 +152,11 @@
             accept=".png, .jpg, .jpeg"
             #fileInput
             (change)="uploadFile($event)"
+            [ngClass]="{
+              'is-invalid':
+                (applicationForm.get(field.field_name).touched || submitted) &&
+                applicationForm.get(field.field_name).invalid
+            }"
           />
         </div>
         <div class="avatar-preview">
@@ -147,7 +174,5 @@
         Upload Image
       </button>
     </ng-template>
-
-    <button type="submit" class="btn btn-primary float-right">Submit</button>
   </form>
 </div>

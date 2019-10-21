@@ -19,6 +19,7 @@ export class AddCourseComponent implements OnInit {
   fields$: Observable<object>;
   applicationBuilderForm: FormGroup;
   fields: object;
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -75,6 +76,7 @@ export class AddCourseComponent implements OnInit {
 
   onSubmit() {
     // stop here if form is invalid
+    this.submitted = true;
     if (this.applicationBuilderForm.invalid) {
       return;
     }
@@ -85,6 +87,7 @@ export class AddCourseComponent implements OnInit {
       fields: this.getAllApplicableFields()
     };
 
+    this.submitted = true;
     this.store.dispatch(new courseActions.SaveApplicationMasterFile(response));
     this.router.navigateByUrl('/');
   }

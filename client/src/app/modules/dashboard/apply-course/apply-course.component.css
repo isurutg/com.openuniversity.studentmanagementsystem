@@ -80,3 +80,8 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.form-group.required label:after {
+  content: "*";
+  color: red;
+}
