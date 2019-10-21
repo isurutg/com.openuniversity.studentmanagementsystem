@@ -19,5 +19,5 @@ steps:
       cd client
       npm install
       npm audit fix
-      ng build --prod --aot
+      ng build --prod
     displayName: "npm install and build"
