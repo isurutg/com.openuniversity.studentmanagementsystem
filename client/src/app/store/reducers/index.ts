@@ -12,14 +12,14 @@ import { InjectionToken } from '@angular/core';
 
 export interface State {
 
-  [fromAuth.authFeatureKey]: fromAuth.State;
-  [fromCourse.courseFeatureKey]: fromCourse.State;
+  auth: fromAuth.State;
+  course: fromCourse.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
 
-  [fromAuth.authFeatureKey]: fromAuth.reducer,
-  [fromCourse.courseFeatureKey]: fromCourse.reducer,
+  auth: fromAuth.reducer,
+  course: fromCourse.reducer,
 };
 
 
