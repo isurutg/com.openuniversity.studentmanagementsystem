@@ -1,3 +1,4 @@
+import { reducerProvider } from './store/reducers/index';
 import { CourseEffects } from './store/effects/course.effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -47,7 +48,7 @@ import { FieldFilterPipe } from './core/helpers/field-filter.pipe';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
+    reducerProvider,
     // provider used to create fake backend
     fakeBackendProvider
   ],
