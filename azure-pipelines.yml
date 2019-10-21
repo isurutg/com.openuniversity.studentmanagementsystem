@@ -17,6 +17,7 @@ steps:
 
   - script: |
       cd client
+      npm install -g @angular/cli
       npm install
       npm audit fix
       ng build --prod
